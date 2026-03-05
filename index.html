@@ -1237,110 +1237,112 @@ body .markdown-body
 		.highlight .gc{color:#999;background-color:#EAF2F5}
   }
 }
-</style><title># W1D2 Teaching Script — IaaS vs PaaS vs SaaS</title></head><body><article class="markdown-body"><h1 id="w1d2-teaching-script-iaas-vs-paas-vs-saas">W1D2 Teaching Script — IaaS vs PaaS vs SaaS<a class="headerlink" href="#w1d2-teaching-script-iaas-vs-paas-vs-saas" title="Permanent link"></a></h1>
+</style><title># W1D3 Teaching Script — Public vs Private vs Hybr</title></head><body><article class="markdown-body"><h1 id="w1d3-teaching-script-public-vs-private-vs-hybrid-cloud">W1D3 Teaching Script — Public vs Private vs Hybrid Cloud<a class="headerlink" href="#w1d3-teaching-script-public-vs-private-vs-hybrid-cloud" title="Permanent link"></a></h1>
 <hr>
 <h2 id="slide-1-title">Slide 1 — Title<a class="headerlink" href="#slide-1-title" title="Permanent link"></a></h2>
-<p>Alright everyone, good morning. Today is Day 2 — yesterday we talked about what cloud computing is and why it exists. Today we’re going one level deeper. We’re going to talk about the three ways you can actually consume cloud services — IaaS, PaaS, and SaaS. By the end of this class, you’ll be able to look at any cloud product and immediately tell me which category it falls into. Let’s get into it.</p>
+<p>Good morning everyone. Day 3. Yesterday we covered IaaS, PaaS, and SaaS — the different ways you consume cloud services. Today we’re asking a completely different question. Not what you get from the cloud, but where that cloud actually lives. Who owns the hardware? Who else is on it? Can another company be running their app on the same physical machine as you?</p>
+<p>That’s what Public, Private, and Hybrid Cloud are about. Let’s get into it.</p>
 <hr>
 <h2 id="slide-2-agenda">Slide 2 — Agenda<a class="headerlink" href="#slide-2-agenda" title="Permanent link"></a></h2>
-<p>Here’s how we’re spending the next hour. We’ll start with a quick two-minute recap of yesterday, then we’ll go through each model one by one — IaaS, PaaS, SaaS. Each one gets about 15 minutes. Then we’ll do a comparison table, a short quiz, and I’ll leave the last 10 minutes for your questions. Simple structure, let’s stick to it.</p>
+<p>Same structure as yesterday. Quick recap, then we go one model at a time. Each model gets its own block — definition, pros and cons, examples, and a real use case. Then we compare all three, I’ll give you a decision guide, quick quiz, and 10 minutes for questions.</p>
 <hr>
 <h2 id="slide-3-the-core-question">Slide 3 — The Core Question<a class="headerlink" href="#slide-3-the-core-question" title="Permanent link"></a></h2>
-<p>Before I explain anything technical, I want you to think about this. When you rent a car, you drive it yourself — you’re in control, but you’re also responsible for everything. When you take a taxi, someone else drives — you give up some control but you don’t have to worry about the road. When you use Uber, you just tap a button — maximum convenience, zero responsibility for how it works under the hood.</p>
-<p>Cloud services work exactly the same way. The only real difference between IaaS, PaaS, and SaaS is how much you manage yourself versus how much the provider handles for you. More control on one end, more convenience on the other. Keep that in your head — everything else today is just details on top of this idea.</p>
+<p>Before I explain anything, I want to re-anchor us. Yesterday the question was: how much do you manage yourself? Today’s question is different — where does the infrastructure physically live?</p>
+<p>Read through these three. Public cloud means the infrastructure is owned by a provider like AWS, and shared between thousands of different customers. Private cloud means it’s dedicated entirely to your organisation — nobody else touches it. Hybrid is a mix of both, connected together.</p>
+<p>Keep those three definitions in your head. Everything today builds on them.</p>
 <hr>
-<h2 id="slide-4-the-pizza-analogy">Slide 4 — The Pizza Analogy<a class="headerlink" href="#slide-4-the-pizza-analogy" title="Permanent link"></a></h2>
-<p>Now let me make this even more concrete with the pizza analogy — this is the most famous way people explain cloud models, and once you hear it, you won’t forget it.</p>
-<p>If you make pizza at home — that’s like on-premises. You buy every ingredient, you make the dough, you cook it, you serve it. You own everything and you do everything.</p>
-<p>If you do take and bake — that’s IaaS. Someone gives you the ingredients and the oven, but you still prepare it and cook it yourself.</p>
-<p>If you order pizza delivery — that’s PaaS. The pizza arrives ready. You might add some toppings, but someone else did all the hard work.</p>
-<p>If you go to a restaurant — that’s SaaS. You sit down, you order, the chef cooks, the waiter serves. You just eat. Nothing to manage.</p>
-<p>The cloud equivalents are right there at the bottom — AWS EC2 for IaaS, Heroku for PaaS, Gmail for SaaS. We’ll go deeper into each one now.</p>
+<h2 id="slide-4-public-cloud-what-is-it">Slide 4 — Public Cloud: What Is It?<a class="headerlink" href="#slide-4-public-cloud-what-is-it" title="Permanent link"></a></h2>
+<p>Public cloud is what most people picture when they say “the cloud.” The servers, storage, and networking are owned and operated by a third-party provider. And importantly — it’s shared. When you run a VM on AWS, somewhere in an Amazon data centre, your virtual machine is on the same physical hardware as some other company’s virtual machine. AWS handles the isolation between you, but you’re sharing the box.</p>
+<p>You pay for what you use, exactly like an electricity bill. Three things to remember: pay as you go, scale instantly, available from anywhere in the world.</p>
 <hr>
-<h2 id="slide-5-iaas-what-is-it">Slide 5 — IaaS: What Is It?<a class="headerlink" href="#slide-5-iaas-what-is-it" title="Permanent link"></a></h2>
-<p>Okay, IaaS — Infrastructure as a Service. The core idea is simple: the cloud provider gives you raw servers, storage, and networking. That’s it. Just the hardware, virtualised.</p>
-<p>You rent a virtual machine and then you build everything on top of it — the operating system, the runtime, the database, your application. Everything above the hardware is your job.</p>
-<p>Three things to remember about IaaS: you have the most control out of all three models, but you also have the most responsibility, and it’s best suited for teams that need a very custom or specific setup. If you want to decide exactly which version of Ubuntu runs, exactly how MySQL is configured, exactly how your backups work — IaaS is your answer.</p>
+<h2 id="slide-5-public-cloud-pros-cons">Slide 5 — Public Cloud: Pros &amp; Cons<a class="headerlink" href="#slide-5-public-cloud-pros-cons" title="Permanent link"></a></h2>
+<p>Let’s be honest about what’s good and what’s not.</p>
+<p>The pros: no hardware to buy upfront, scales up or down instantly on demand, zero maintenance because the provider handles everything, and it’s available globally across every region.</p>
+<p>The cons: your data shares physical hardware with other companies — that’s the shared tenancy model. You have less control over the underlying infrastructure. It requires internet connectivity to work. And costs can spike if you’re not paying attention to what you’re running.</p>
+<p>Being able to name both sides is what makes you credible in a technical conversation.</p>
 <hr>
-<h2 id="slide-6-iaas-what-you-manage">Slide 6 — IaaS: What You Manage<a class="headerlink" href="#slide-6-iaas-what-you-manage" title="Permanent link"></a></h2>
-<p>Look at this diagram. On the left side — coloured in green, yellow, orange, red — those are all the things YOU are responsible for with IaaS. Your application, your data, the runtime like Node or Python, the operating system, and virtualisation.</p>
-<p>On the right side — in grey — are the things the provider manages. Physical servers, storage, networking. They handle the actual hardware so you don’t have to buy it or maintain it.</p>
-<p>Think of it like leasing office space. The landlord gives you the building. But you buy the furniture, set up the desks, run the cables, install everything. The building is theirs — everything inside is yours to set up and maintain.</p>
+<h2 id="slide-6-public-cloud-real-examples">Slide 6 — Public Cloud: Real Examples<a class="headerlink" href="#slide-6-public-cloud-real-examples" title="Permanent link"></a></h2>
+<p>These are the names you’ll hear constantly. AWS — Amazon Web Services — holds about a third of the entire cloud market. Netflix, Airbnb, NASA all run on AWS.</p>
+<p>Microsoft Azure is number two, dominant in large enterprises that are already deep in the Microsoft ecosystem.</p>
+<p>Google Cloud Platform is third, and it’s especially strong in data analytics and machine learning.</p>
+<p>DigitalOcean is much smaller but beloved by developers because it’s simpler and cheaper. You’ll likely use it yourselves for personal projects.</p>
 <hr>
-<h2 id="slide-7-iaas-real-examples">Slide 7 — IaaS: Real Examples<a class="headerlink" href="#slide-7-iaas-real-examples" title="Permanent link"></a></h2>
-<p>These are the actual products you’ll hear about in the industry. AWS EC2 is the most popular — EC2 stands for Elastic Compute Cloud, and it’s essentially Amazon’s virtual machine service. Azure Virtual Machines is Microsoft’s version, and it’s heavily used in enterprise companies. Google Compute Engine is Google’s offering. And DigitalOcean Droplets is very popular with individual developers and small startups because it’s simpler and cheaper.</p>
-<p>When someone in a job interview asks you about IaaS, these are the names you drop. EC2 especially — you will hear that name constantly in this course.</p>
+<h2 id="slide-7-public-cloud-use-case">Slide 7 — Public Cloud: Use Case<a class="headerlink" href="#slide-7-public-cloud-use-case" title="Permanent link"></a></h2>
+<p>Real scenario. A two-person startup is building a food delivery app. Zero budget for servers.</p>
+<p>They sign up for AWS that afternoon, spin up a few EC2 instances, and the app is live worldwide. They’re paying about $50 a month.</p>
+<p>Six months later — 100,000 users. Weekend traffic is ten times higher than weekday traffic. AWS auto-scales the servers automatically. They changed nothing in their setup.</p>
+<p>Key insight: zero upfront cost, pay only for what they use, and scale without touching anything. This is why almost every startup in the world defaults to public cloud. The financial barrier to starting is basically gone.</p>
 <hr>
-<h2 id="slide-8-iaas-real-use-case">Slide 8 — IaaS: Real Use Case<a class="headerlink" href="#slide-8-iaas-real-use-case" title="Permanent link"></a></h2>
-<p>Let me make this real with a scenario. A company called FinanceApp needs to run a custom database server. They have very specific requirements — a particular version of MySQL, a specific configuration that a managed service doesn’t support.</p>
-<p>So here’s what they do: they rent an EC2 instance on AWS, they SSH into it, they install Ubuntu, they install MySQL themselves, they configure it, and they set up their own backup scripts.</p>
-<p>See that row of steps at the bottom? Every single one of those is the company’s job. They did it all.</p>
-<p>Here’s the key insight — with IaaS, they have total control. But if MySQL crashes at 2am, it’s their engineer who gets woken up. That’s the trade-off. Control comes with responsibility.</p>
+<h2 id="slide-8-private-cloud-what-is-it">Slide 8 — Private Cloud: What Is It?<a class="headerlink" href="#slide-8-private-cloud-what-is-it" title="Permanent link"></a></h2>
+<p>Private cloud — the name says it all. The infrastructure is dedicated entirely to one organisation. No other company shares your hardware, period.</p>
+<p>It can be physically in your own data centre, or a provider can give you dedicated hardware at their facility — but either way, no one else is on it.</p>
+<p>Three things to remember: maximum security through complete isolation, full control over every layer of the stack, and it satisfies the strictest compliance requirements — which is the main reason companies actually choose it.</p>
 <hr>
-<h2 id="slide-9-paas-what-is-it">Slide 9 — PaaS: What Is It?<a class="headerlink" href="#slide-9-paas-what-is-it" title="Permanent link"></a></h2>
-<p>Now PaaS — Platform as a Service. This is where it starts getting more convenient.</p>
-<p>With PaaS, the provider doesn’t just give you servers. They give you the entire environment your app runs in. That means the runtime is already there, the OS is already configured, scaling is handled automatically. You just write your code and deploy it.</p>
-<p>Think about what that means for a developer. They don’t have to think about “which version of Node is installed” or “how do I configure this server” or “how do I make it scale when traffic increases.” All of that is the platform’s job. The developer just focuses on the application.</p>
-<p>Three things to remember about PaaS: just write code and deploy, it’s much faster to launch than IaaS, and it’s best for developers and startups who want to move quickly.</p>
+<h2 id="slide-9-private-cloud-pros-cons">Slide 9 — Private Cloud: Pros &amp; Cons<a class="headerlink" href="#slide-9-private-cloud-pros-cons" title="Permanent link"></a></h2>
+<p>Pros: complete data isolation — no shared hardware whatsoever. Full control over every layer. It meets strict regulatory and compliance requirements that public cloud simply can’t satisfy. And you can customise everything to your exact specifications.</p>
+<p>Cons: very high upfront cost — you’re buying hardware, building facilities, and hiring staff. It’s slow to scale because you’re limited by what physical hardware you actually own. You are personally responsible for all maintenance and upgrades. And you need a dedicated in-house infrastructure team just to keep it running.</p>
+<p>This is why most companies never go private. The economics only make sense when the legal or security requirement forces your hand.</p>
 <hr>
-<h2 id="slide-10-paas-what-you-manage">Slide 10 — PaaS: What You Manage<a class="headerlink" href="#slide-10-paas-what-you-manage" title="Permanent link"></a></h2>
-<p>Same diagram as before but notice what changed. On the left — only your application and your data. That’s all you manage. Just two layers.</p>
-<p>Everything else — runtime, OS, virtualisation, physical servers — all handled by the provider. That’s a lot less work compared to IaaS.</p>
-<p>The analogy here is a fully equipped kitchen for rent. The stove, the oven, the counters — all set up and ready. You walk in, cook your dish, and walk out. You didn’t have to install anything. You just used it.</p>
+<h2 id="slide-10-private-cloud-who-uses-it">Slide 10 — Private Cloud: Who Uses It?<a class="headerlink" href="#slide-10-private-cloud-who-uses-it" title="Permanent link"></a></h2>
+<p>If private cloud is this expensive and complex, why does it exist? Almost always because organisations are legally required to use it, or because the risk of shared hardware is genuinely unacceptable.</p>
+<p>Banks — customer financial data often legally cannot sit on shared infrastructure. Regulations in many countries require isolation.</p>
+<p>Healthcare — patient medical records require strict data isolation. Laws like HIPAA in the US set very specific requirements.</p>
+<p>Government — national security data cannot run on AWS where thousands of other companies also have workloads.</p>
+<p>Large enterprises with existing data centres — if a company has spent hundreds of millions on physical infrastructure over decades, they don’t abandon it overnight. They build a private cloud on top.</p>
+<p>Research institutions — universities and labs with sensitive research data or proprietary experiments they can’t risk on shared infrastructure.</p>
 <hr>
-<h2 id="slide-11-paas-real-examples">Slide 11 — PaaS: Real Examples<a class="headerlink" href="#slide-11-paas-real-examples" title="Permanent link"></a></h2>
-<p>Heroku is the most beginner-friendly PaaS — you’ll probably use it yourself in this course. You connect your GitHub repo, push code, and it’s live. That’s genuinely it.</p>
-<p>Google App Engine automatically scales your app based on traffic — if a million people visit your site at once, it handles it without you doing anything.</p>
-<p>AWS Elastic Beanstalk is Amazon’s PaaS — it’s built on top of EC2 but abstracts all the complexity away.</p>
-<p>Render and Railway are newer options that are very popular with developers today — they’re basically modern Heroku.</p>
+<h2 id="slide-11-private-cloud-use-case">Slide 11 — Private Cloud: Use Case<a class="headerlink" href="#slide-11-private-cloud-use-case" title="Permanent link"></a></h2>
+<p>Here’s the scenario. A major bank processes millions of transactions every day — account data, loan records, payment history.</p>
+<p>The regulator says: this data must stay within the country and must never sit on shared hardware. So the bank builds their own private cloud inside their own data centre. They virtualise their physical servers, add automation on top, and operate it like a cloud — but it’s entirely theirs.</p>
+<p>Key insight: no other company can ever touch their data. Zero shared hardware. But the trade-off is real — it costs enormously more to build and operate, and they need a dedicated team of engineers just to keep the lights on. That’s the price of full isolation.</p>
 <hr>
-<h2 id="slide-12-paas-real-use-case">Slide 12 — PaaS: Real Use Case<a class="headerlink" href="#slide-12-paas-real-use-case" title="Permanent link"></a></h2>
-<p>Let me give you a real scenario. Aisha is a developer at a startup. She builds a Node.js web app. Instead of renting a server, installing Node, configuring Nginx, setting up SSL — she just runs one command: git push heroku main.</p>
-<p>Heroku detects it’s a Node.js app automatically. It installs the dependencies, starts the server, sets up HTTPS, and gives her a live URL. The whole thing takes maybe 30 seconds.</p>
-<p>The key insight here is what Aisha didn’t do. She didn’t touch a single server. She didn’t install anything. She didn’t configure anything. She just wrote the app and pushed it.</p>
-<p>That’s the power of PaaS — and that’s why startups love it.</p>
+<h2 id="slide-12-hybrid-cloud-what-is-it">Slide 12 — Hybrid Cloud: What Is It?<a class="headerlink" href="#slide-12-hybrid-cloud-what-is-it" title="Permanent link"></a></h2>
+<p>Hybrid cloud is a combination of public and private cloud working together as one environment.</p>
+<p>Look at the diagram. On the left — private cloud. Locked down, dedicated, for sensitive data and compliance workloads. On the right — public cloud. Flexible, cheap, for everything else. In the middle, they’re connected. Data and applications can flow securely between them.</p>
+<p>The idea is you don’t have to choose one or the other. Keep the sensitive stuff private. Put everything else on public. Get the security benefits of private and the cost and scale benefits of public — in the same architecture.</p>
 <hr>
-<h2 id="slide-13-saas-what-is-it">Slide 13 — SaaS: What Is It?<a class="headerlink" href="#slide-13-saas-what-is-it" title="Permanent link"></a></h2>
-<p>And now SaaS — Software as a Service. This is the simplest model of all three.</p>
-<p>The provider handles absolutely everything. Infrastructure, platform, and the full application. You just open a browser, log in, and use it. There’s nothing to install on a server, nothing to configure, no updates to run manually. It just works.</p>
-<p>Here’s something interesting — most people in the world are already heavy SaaS users without knowing what the term means. Your parents use SaaS. Your non-technical friends use SaaS. If you’ve ever used Gmail, you’ve used SaaS.</p>
-<p>Three things to remember: zero setup, always up to date automatically, and best for end users and businesses who just need a tool that works.</p>
+<h2 id="slide-13-hybrid-cloud-pros-cons">Slide 13 — Hybrid Cloud: Pros &amp; Cons<a class="headerlink" href="#slide-13-hybrid-cloud-pros-cons" title="Permanent link"></a></h2>
+<p>Pros: sensitive data stays isolated on private infrastructure where it legally needs to be. Public cloud handles scale and cost for everything else. It enables gradual migration from legacy systems instead of a risky big-bang cutover. And you can set up disaster recovery across both environments.</p>
+<p>Cons: this is the most complex architecture of the three — it’s harder to design and manage. You need expertise in both public and private cloud. The secure connection between the two environments adds another layer of complexity. And it can be expensive if you get the balance wrong between what runs where.</p>
+<p>Hybrid is powerful, but it’s not something you build on day one. It’s where mature organisations end up after years of running both environments.</p>
 <hr>
-<h2 id="slide-14-saas-apps-you-already-use">Slide 14 — SaaS: Apps You Already Use<a class="headerlink" href="#slide-14-saas-apps-you-already-use" title="Permanent link"></a></h2>
-<p>I want you to look at this slide and tell me honestly — how many of these do you use every day?</p>
-<p>Gmail or Outlook — you never set up a mail server. WhatsApp or Slack — you just installed the app and started chatting. Zoom — you open a browser and join a call. Google Drive — your files are in the cloud, no hardware needed. Spotify or Netflix — you just press play. Notion or Figma — tools that dev teams and designers use daily.</p>
-<p>Every single one of these is SaaS. The companies behind them manage massive server infrastructure, databases, security, updates — and you see none of it. You just get the product.</p>
+<h2 id="slide-14-hybrid-cloud-why-companies-use-it">Slide 14 — Hybrid Cloud: Why Companies Use It<a class="headerlink" href="#slide-14-hybrid-cloud-why-companies-use-it" title="Permanent link"></a></h2>
+<p>Four real reasons you’ll see in the industry.</p>
+<p>First — they already have a data centre. You can’t migrate everything to public cloud in a year. Hybrid lets them use what they’ve already paid for while slowly moving workloads over time.</p>
+<p>Second — some data legally must stay private. A hospital’s patient records have to stay on private infrastructure — but their patient-facing website can run on AWS without any compliance issues.</p>
+<p>Third — cost optimisation. Running steady baseline workloads on private infrastructure can actually be cheaper long-term than paying public cloud rates. But when traffic spikes, you burst to the public cloud rather than buying hardware that would sit idle most of the year.</p>
+<p>Fourth — disaster recovery. Primary systems on private. Backup and failover on public cloud. If the data centre has a problem, the public cloud takes over automatically.</p>
 <hr>
-<h2 id="slide-15-saas-what-you-manage">Slide 15 — SaaS: What You Manage<a class="headerlink" href="#slide-15-saas-what-you-manage" title="Permanent link"></a></h2>
-<p>Look at this diagram. On the left — only your data. What you type, what you upload. That is the only thing you’re responsible for.</p>
-<p>Everything else — the app itself, the runtime, the OS, the database, the servers, the networking — all handled by the provider. Everything.</p>
-<p>The restaurant analogy is perfect here. You sit down, you order, the chef cooks everything, the waiter brings it. You pay and enjoy. You’re not responsible for the kitchen, the ingredients, the cleaning, the electricity bill of the restaurant. None of it. You just show up and eat.</p>
+<h2 id="slide-15-hybrid-cloud-use-case">Slide 15 — Hybrid Cloud: Use Case<a class="headerlink" href="#slide-15-hybrid-cloud-use-case" title="Permanent link"></a></h2>
+<p>Here’s the scenario. A hospital chain has patient records, diagnoses, and medical history for millions of patients. This data must legally stay on private servers within the country. Non-negotiable.</p>
+<p>But they also run a patient appointment booking website. During flu season, thousands of people use it at the same time. Running that on private cloud would mean buying expensive hardware that sits mostly idle for the other ten months of the year.</p>
+<p>So the architecture splits: patient data on private cloud — protected, compliant, isolated. The booking website on AWS — auto-scaling with demand, cost-efficient.</p>
+<p>Both systems talk to each other over a secure private connection. That’s hybrid cloud in the real world — each workload in the right environment.</p>
 <hr>
-<h2 id="slide-16-saas-real-use-case">Slide 16 — SaaS: Real Use Case<a class="headerlink" href="#slide-16-saas-real-use-case" title="Permanent link"></a></h2>
-<p>Here’s the scenario. A 50-person company decides to use Slack for communication. What do they do? They go to slack.com, sign up, enter their card details, and send invite links to the team. That’s the entire setup process.</p>
-<p>No servers to provision. No app to deploy. No database to manage. No updates to schedule. Slack’s engineers handle all of that. The company just pays a monthly fee and uses the product.</p>
-<p>And here’s the key insight — the company manages zero infrastructure. The only thing they manage is their own data — their messages and files. If Slack’s servers go down, it’s Slack’s problem to fix. Not theirs.</p>
+<h2 id="slide-16-side-by-side-comparison">Slide 16 — Side-by-Side Comparison<a class="headerlink" href="#slide-16-side-by-side-comparison" title="Permanent link"></a></h2>
+<p>Let’s put all three next to each other. Take a minute to read through the table.</p>
+<p>The pattern is clear. As you go from public to private, cost goes up, security goes up, but scalability and ease both go down. Hybrid sits in the middle of almost every dimension.</p>
+<p>The examples row: Netflix on AWS for public, a bank’s internal systems for private, a hospital’s split architecture for hybrid. Those three examples will serve you well in interviews and conversations.</p>
 <hr>
-<h2 id="slide-17-side-by-side-comparison">Slide 17 — Side-by-Side Comparison<a class="headerlink" href="#slide-17-side-by-side-comparison" title="Permanent link"></a></h2>
-<p>Okay let’s put all three side by side now. Take a minute to read through this table.</p>
-<p>See the pattern? As you go from IaaS to PaaS to SaaS, the amount you manage keeps shrinking. With IaaS you manage the OS, runtime, app, and data. With PaaS just the app and data. With SaaS just your data.</p>
-<p>At the same time, control goes from high to medium to low, and ease of use goes from complex to moderate to very easy. These two things always move together — the more control you have, the more complex it is.</p>
-<p>The examples column is the one I want you to remember: EC2, Heroku, Gmail. Those three names map perfectly to IaaS, PaaS, SaaS.</p>
+<h2 id="slide-17-when-do-you-choose-which">Slide 17 — When Do You Choose Which?<a class="headerlink" href="#slide-17-when-do-you-choose-which" title="Permanent link"></a></h2>
+<p>This is the practical decision guide. When a client or employer asks “what cloud model should we use?” — this is how you think through it.</p>
+<p>Public cloud if: you’re a startup or small company, your data has no strict legal requirements, you need low cost and fast scale.</p>
+<p>Private cloud if: you’re in banking, healthcare, or government, regulations force data isolation, you have existing infrastructure to leverage, you need full control.</p>
+<p>Hybrid if: you have legacy systems that can’t be fully migrated yet, some workloads need private but others need public scale, you want disaster recovery across both, you need to optimise cost versus security on a per-workload basis.</p>
 <hr>
 <h2 id="slide-18-quick-quiz">Slide 18 — Quick Quiz<a class="headerlink" href="#slide-18-quick-quiz" title="Permanent link"></a></h2>
-<p>Alright, close your notes. Let’s see if this landed. I’ll read each scenario — you just say IaaS, PaaS, or SaaS. Don’t overthink it.</p>
-<p>Q1 — A startup rents a virtual machine on AWS and installs their own web server and database. What is that? — IaaS. They’re managing everything on top of the raw machine.</p>
-<p>Q2 — A developer pushes code to Heroku with one command and the platform runs it automatically. — PaaS. The platform handled everything except the app.</p>
-<p>Q3 — Your team uses Google Workspace for email and docs. No setup required. — SaaS. You just log in and use it.</p>
-<p>Q4 — Netflix runs thousands of virtual machines on AWS to stream video. — IaaS. Netflix manages those VMs themselves — they just rent the raw compute from Amazon.</p>
-<p>Good. If you got all four, you’ve understood today’s class.</p>
+<p>Four scenarios. Public, Private, or Hybrid — don’t overthink it.</p>
+<p>Q1 — A startup launches on AWS. No data centre, pay monthly. — Public. No reason for anything more complex.</p>
+<p>Q2 — A bank builds their own virtualised infrastructure in-house for customer data. — Private. Legal requirement, dedicated hardware.</p>
+<p>Q3 — A hospital keeps patient records on-premises but runs their website on Google Cloud. — Hybrid. Two environments, one connected architecture.</p>
+<p>Q4 — Netflix stores and streams all their video content via AWS worldwide. — Public. Massive scale, global infrastructure, no regulatory reason to go private.</p>
 <hr>
 <h2 id="slide-19-key-takeaways">Slide 19 — Key Takeaways<a class="headerlink" href="#slide-19-key-takeaways" title="Permanent link"></a></h2>
-<p>Let me leave you with the one-liner for each.</p>
-<p>IaaS — raw infrastructure, you manage everything above the hardware, think renting a car.</p>
-<p>PaaS — platform provided, you just manage your app and data, think calling a taxi.</p>
-<p>SaaS — full product delivered, you manage nothing technical, think Uber — tap and go.</p>
-<p>Next class we’ll look at Public vs Private vs Hybrid Cloud — that’s about where the infrastructure lives, not what you do with it. Different question, equally important.</p>
-<p>Any questions before we wrap up?</p>
+<p>Three one-liners.</p>
+<p>Public Cloud — provider owns everything, pay as you go, best for most companies especially startups. Think: shared office space. You rent a desk, other companies are in the same building.</p>
+<p>Private Cloud — you own everything, most secure, most expensive, required for regulated industries. Think: your own building that only your company uses.</p>
+<p>Hybrid Cloud — mix of both, sensitive workloads stay private, everything else goes public, most large enterprises end up here eventually. Think: your own secure vault for the important stuff, rented space for everything else.</p>
+<p>Next class is Day 4 — we finally go hands-on. We’ll walk through the AWS console together, explore regions and availability zones, and you’ll log in and have a proper look around. See you then.</p>
+<p>Any questions?</p>
 <hr>
 <p><em>Total estimated time: 50 min teaching + 10 min Q&amp;A</em></p></article></body></html>
