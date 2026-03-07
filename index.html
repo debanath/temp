@@ -1237,273 +1237,284 @@ body .markdown-body
 		.highlight .gc{color:#999;background-color:#EAF2F5}
   }
 }
-</style><title># W1D4 Teaching Script — AWS Console, Regions &amp; Av</title></head><body><article class="markdown-body"><h1 id="w1d4-teaching-script-aws-console-regions-availability-zones">W1D4 Teaching Script — AWS Console, Regions &amp; Availability Zones<a class="headerlink" href="#w1d4-teaching-script-aws-console-regions-availability-zones" title="Permanent link"></a></h1>
-<h3 id="22-slides-fully-theoretical-60-min">22 Slides · Fully Theoretical · ~60 min<a class="headerlink" href="#22-slides-fully-theoretical-60-min" title="Permanent link"></a></h3>
+</style><title>script</title></head><body><article class="markdown-body"><h1 id="week-1-day-5-virtual-machines-storage-basics">Week 1 Day 5 — Virtual Machines &amp; Storage Basics<a class="headerlink" href="#week-1-day-5-virtual-machines-storage-basics" title="Permanent link"></a></h1>
+<h2 id="1-hour-teaching-script-with-timing-guide">1 Hour Teaching Script with Timing Guide<a class="headerlink" href="#1-hour-teaching-script-with-timing-guide" title="Permanent link"></a></h2>
 <hr>
-<h2 id="slide-1-title">Slide 1 — Title<a class="headerlink" href="#slide-1-title" title="Permanent link"></a></h2>
-<p>Good morning everyone. Day 4. We’ve spent the first three days understanding cloud computing in the abstract — what it is, the service models, and where infrastructure lives. Today we go a layer deeper and get specific about AWS: how its global infrastructure is structured, and how you interact with it through the console.</p>
-<p>Everything today is conceptual. No logins, no accounts, nothing to click. Just understanding.</p>
+<h2 id="slide-1-title-2-minutes">Slide 1 — Title (2 minutes)<a class="headerlink" href="#slide-1-title-2-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content">Slide Content<a class="headerlink" href="#slide-content" title="Permanent link"></a></h3>
+<p>Virtual Machines &amp; Storage Basics</p>
+<p>What we will learn:
+- What a Virtual Machine is
+- Why companies use VMs
+- What storage means in cloud infrastructure
+- Types of storage used in cloud</p>
+<h3 id="speaker-script">Speaker Script<a class="headerlink" href="#speaker-script" title="Permanent link"></a></h3>
+<p>Good morning everyone.</p>
+<p>Today we are going to talk about <strong>Virtual Machines and Storage Basics</strong>.</p>
+<p>So far in this course we have discussed cloud computing at a conceptual level.
+We talked about regions, availability zones, and the global infrastructure of cloud providers.</p>
+<p>Today we move one level deeper and begin understanding the <strong>actual machines and storage systems running inside the cloud</strong>.</p>
+<p>By the end of this class you should understand:
+- What a virtual machine really is
+- Why cloud providers rely on virtualization
+- How storage works in cloud systems</p>
+<p>These two ideas form the <strong>foundation of modern cloud infrastructure</strong>.</p>
 <hr>
-<h2 id="slide-2-agenda">Slide 2 — Agenda<a class="headerlink" href="#slide-2-agenda" title="Permanent link"></a></h2>
-<p>Here’s our plan for the hour. We’ll open with a quick recap, then spend about 15 minutes on Regions — what they are, why they exist, real names, and the global infrastructure picture. Then 15 minutes on Availability Zones — what they are, how they differ from Regions, a real outage case study, and how to think about picking AZs. Then about 15 minutes on the AWS Console — key areas, IAM, billing, CloudWatch, and the #1 beginner mistake. We’ll close with a quiz, key takeaways, and Q&amp;A.</p>
+<h2 id="slide-2-quick-recap-3-minutes">Slide 2 — Quick Recap (3 minutes)<a class="headerlink" href="#slide-2-quick-recap-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_1">Slide Content<a class="headerlink" href="#slide-content_1" title="Permanent link"></a></h3>
+<p>Last class:
+- AWS Console
+- Regions
+- Availability Zones</p>
+<p>Question: What are we launching when we launch a cloud server?</p>
+<p>Answer: Virtual Machine</p>
+<h3 id="speaker-script_1">Speaker Script<a class="headerlink" href="#speaker-script_1" title="Permanent link"></a></h3>
+<p>Before starting today’s topic let’s quickly review what we covered last class.</p>
+<p>We explored the AWS console and discussed how AWS divides its infrastructure into <strong>regions and availability zones</strong>.</p>
+<p>Regions represent geographic areas, and availability zones represent <strong>separate data centers designed for reliability</strong>.</p>
+<p>Now here’s an interesting question.</p>
+<p>When you click “Launch Instance” in AWS, what are you actually getting?</p>
+<p>Is AWS giving you an entire physical computer?</p>
+<p>In most cases the answer is <strong>no</strong>.</p>
+<p>Instead AWS creates something called a <strong>Virtual Machine</strong>.</p>
+<p>That is what we will explore today.</p>
 <hr>
-<h2 id="slide-3-recap">Slide 3 — Recap<a class="headerlink" href="#slide-3-recap" title="Permanent link"></a></h2>
-<p>Three questions from yesterday before we move on. No notes.</p>
-<p>Q1 — What’s the difference between IaaS and PaaS? IaaS: you manage the OS, runtime, and application. PaaS: the provider manages everything except your application code.</p>
-<p>Q2 — Which cloud model is best for a bank handling customer data? Private cloud. The data can’t legally sit on shared hardware.</p>
-<p>Q3 — What does hybrid cloud mean? A combination of public and private cloud, connected and working together as one environment.</p>
-<p>Good. Let’s move forward.</p>
+<h2 id="slide-3-the-problem-before-virtual-machines-3-minutes">Slide 3 — The Problem Before Virtual Machines (3 minutes)<a class="headerlink" href="#slide-3-the-problem-before-virtual-machines-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_2">Slide Content<a class="headerlink" href="#slide-content_2" title="Permanent link"></a></h3>
+<p>Earlier companies had:
+- One physical server
+- One application
+- One OS</p>
+<p>Problems:
+- Hardware waste
+- Expensive servers
+- Hard to scale
+- Slow deployment</p>
+<h3 id="speaker-script_2">Speaker Script<a class="headerlink" href="#speaker-script_2" title="Permanent link"></a></h3>
+<p>Before virtualization existed, companies used physical servers directly.</p>
+<p>If a company wanted to run an application they would purchase a server, install an operating system, and run the application on that machine.</p>
+<p>Usually each server ran only <strong>one application</strong>.</p>
+<p>This approach caused many problems.</p>
+<p>Hardware was often underutilized.
+Servers were expensive.
+Scaling required purchasing more hardware.
+And deploying a new server could take days.</p>
+<p>Clearly this system was inefficient.</p>
 <hr>
-<h2 id="slide-4-regions-what-is-it">Slide 4 — Regions: What Is It?<a class="headerlink" href="#slide-4-regions-what-is-it" title="Permanent link"></a></h2>
-<p>First question: where in the world are AWS’s servers? The answer is — everywhere. AWS has data centres spread across the globe, and those locations are called Regions.</p>
-<p>A Region is a geographic area where AWS has built infrastructure. Think of it as AWS having offices in different cities — each completely independent from the others.</p>
-<p>Three things to lock in right now. There are over 30 Regions worldwide and AWS adds new ones every year. Data you put in a Region stays in that Region — it does not automatically replicate to other Regions. And every resource you create in AWS lives in a Region that you choose.</p>
+<h2 id="slide-4-example-of-hardware-waste-3-minutes">Slide 4 — Example of Hardware Waste (3 minutes)<a class="headerlink" href="#slide-4-example-of-hardware-waste-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_3">Slide Content<a class="headerlink" href="#slide-content_3" title="Permanent link"></a></h3>
+<p>Example server:
+32 CPU cores
+128 GB RAM</p>
+<p>Application usage:
+4 CPU
+8 GB RAM</p>
+<h3 id="speaker-script_3">Speaker Script<a class="headerlink" href="#speaker-script_3" title="Permanent link"></a></h3>
+<p>Imagine buying a powerful server with 32 CPU cores and 128 GB of RAM.</p>
+<p>But your application only uses 4 CPU cores and 8 GB of RAM.</p>
+<p>That means most of the hardware is doing nothing.</p>
+<p>Yet the company still paid for the full server.</p>
+<p>Now imagine thousands of companies doing this.</p>
+<p>That means huge amounts of computing power are wasted.</p>
+<p>Virtualization was created to solve this exact problem.</p>
 <hr>
-<h2 id="slide-5-regions-why-do-they-exist">Slide 5 — Regions: Why Do They Exist?<a class="headerlink" href="#slide-5-regions-why-do-they-exist" title="Permanent link"></a></h2>
-<p>There are three real reasons companies care very deeply about which Region they pick.</p>
-<p>First — latency. If your users are in India and your servers are in the US, every request travels across the world. That round trip adds delay, and users feel it. Choosing a Region physically close to your users makes your application faster. A company targeting Indian users picks ap-south-1 in Mumbai, not us-east-1 in Virginia.</p>
-<p>Second — compliance. This is often more important than latency. Many countries have laws that say customer data must stay physically within their borders. A German company handling EU customer data may be legally required to keep it in eu-central-1 Frankfurt. This isn’t a preference — it’s a regulatory requirement. Violating it can result in fines.</p>
-<p>Third — cost. AWS pricing is not the same in every Region. The exact same server type can cost 10 to 20 percent more in one Region than another. For workloads that have no latency or compliance requirements — like a batch job that processes data overnight — companies sometimes just pick the cheapest Region to reduce their bill.</p>
+<h2 id="slide-5-what-is-a-virtual-machine-3-minutes">Slide 5 — What is a Virtual Machine (3 minutes)<a class="headerlink" href="#slide-5-what-is-a-virtual-machine-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_4">Slide Content<a class="headerlink" href="#slide-content_4" title="Permanent link"></a></h3>
+<p>Virtual Machine = software version of a computer</p>
+<p>Each VM has:
+- OS
+- CPU allocation
+- RAM allocation
+- Disk
+- Network</p>
+<h3 id="speaker-script_4">Speaker Script<a class="headerlink" href="#speaker-script_4" title="Permanent link"></a></h3>
+<p>A virtual machine is essentially a computer created using software.</p>
+<p>It runs inside a physical server but behaves like a completely independent system.</p>
+<p>Each VM has its own operating system, CPU resources, memory, storage, and networking.</p>
+<p>From the user’s perspective it behaves exactly like a real computer.</p>
 <hr>
-<h2 id="slide-6-regions-real-names">Slide 6 — Regions: Real Names<a class="headerlink" href="#slide-6-regions-real-names" title="Permanent link"></a></h2>
-<p>These are actual AWS Region codes you will see constantly throughout your career. Take a minute to look at them.</p>
-<p>The pattern is always the same — geography, cardinal direction, then a number. us-east-1 means United States, East, first Region in that area. eu-west-1 means Europe, West, first Region. ap-south-1 means Asia Pacific, South, first Region. Once you know the pattern, any Region code is readable.</p>
-<p>The most important one to know is us-east-1, Northern Virginia. It’s the original AWS Region. It’s the cheapest. It’s where Amazon itself runs much of its infrastructure, and it’s where most new AWS features launch first before rolling out to other Regions.</p>
-<p>For us here in India — ap-south-1 Mumbai is your Region. Lowest latency for Indian users and the most relevant for anything you build for an Indian audience.</p>
+<h2 id="slide-6-simple-analogy-3-minutes">Slide 6 — Simple Analogy (3 minutes)<a class="headerlink" href="#slide-6-simple-analogy-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_5">Slide Content<a class="headerlink" href="#slide-content_5" title="Permanent link"></a></h3>
+<p>Physical server = Apartment building</p>
+<p>Virtual machines = Apartments</p>
+<h3 id="speaker-script_5">Speaker Script<a class="headerlink" href="#speaker-script_5" title="Permanent link"></a></h3>
+<p>A helpful analogy is to imagine a physical server as an apartment building.</p>
+<p>The building itself is the hardware.</p>
+<p>Each apartment is a virtual machine.</p>
+<p>Each apartment is separate and independent, but they all share the same building infrastructure.</p>
 <hr>
-<h2 id="slide-7-regions-aws-global-infrastructure">Slide 7 — Regions: AWS Global Infrastructure<a class="headerlink" href="#slide-7-regions-aws-global-infrastructure" title="Permanent link"></a></h2>
-<p>Now let’s zoom out and look at the full picture. AWS’s global infrastructure isn’t just Regions — it has three distinct layers, each serving a different purpose.</p>
-<p>The first layer is Regions. 30+ worldwide. Full data centre clusters — compute, storage, networking, databases, everything. This is where you deploy your applications.</p>
-<p>The second layer is Availability Zones. 100+ globally. Multiple isolated data centres sitting inside each Region. The resilience layer. We’ll cover these in depth in a moment.</p>
-<p>The third layer is Edge Locations. 400+ worldwide. These are much smaller than Regions — not full data centres, just lightweight cache points. They exist in cities and towns that don’t have a full AWS Region. Their job is to serve content to end users as fast as possible, without the request having to travel to a full Region.</p>
-<p>The number to remember: 30+ Regions, 100+ AZs, 400+ Edge Locations. Each layer gets larger in count but smaller in capability as you go down.</p>
+<h2 id="slide-7-hypervisor-3-minutes">Slide 7 — Hypervisor (3 minutes)<a class="headerlink" href="#slide-7-hypervisor-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_6">Slide Content<a class="headerlink" href="#slide-content_6" title="Permanent link"></a></h3>
+<p>Hypervisor responsibilities:
+- Divide hardware
+- Create VMs
+- Isolate machines</p>
+<p>Examples:
+VMware
+Hyper-V
+KVM</p>
+<h3 id="speaker-script_6">Speaker Script<a class="headerlink" href="#speaker-script_6" title="Permanent link"></a></h3>
+<p>The technology that makes virtualization possible is called a <strong>hypervisor</strong>.</p>
+<p>A hypervisor manages the hardware resources and distributes them among multiple virtual machines.</p>
+<p>It also isolates the machines so that one VM cannot interfere with another.</p>
 <hr>
-<h2 id="slide-8-regions-edge-locations-cloudfront">Slide 8 — Regions: Edge Locations &amp; CloudFront<a class="headerlink" href="#slide-8-regions-edge-locations-cloudfront" title="Permanent link"></a></h2>
-<p>Let me explain Edge Locations with a concrete example you’ll recognise. Have you ever noticed that Netflix streams smoothly even though Netflix’s servers aren’t in your city?</p>
-<p>That’s because of a CDN — a Content Delivery Network. AWS’s CDN is called CloudFront, and it uses those 400+ Edge Locations to make it work.</p>
-<p>Here’s the flow. Step 1 — Netflix uploads a video file to S3, which is sitting in us-east-1, Virginia. Step 2 — they enable CloudFront. CloudFront automatically copies that video file to hundreds of Edge Locations worldwide, including Mumbai. Step 3 — a user in Mumbai hits play. Instead of that request going to Virginia and back, CloudFront serves the video from the Mumbai Edge Location — milliseconds away. Step 4 — the video loads instantly. The user never touches the Virginia Region at all.</p>
-<p>This is the difference between a Region and an Edge Location. Regions are where you build and run your infrastructure. Edge Locations are where you bring content close to users.</p>
+<h2 id="slide-8-architecture-overview-3-minutes">Slide 8 — Architecture Overview (3 minutes)<a class="headerlink" href="#slide-8-architecture-overview-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_7">Slide Content<a class="headerlink" href="#slide-content_7" title="Permanent link"></a></h3>
+<p>Physical Hardware
+→ Hypervisor
+→ Virtual Machines</p>
+<h3 id="speaker-script_7">Speaker Script<a class="headerlink" href="#speaker-script_7" title="Permanent link"></a></h3>
+<p>At the bottom we have the physical server hardware.</p>
+<p>On top of the hardware runs the hypervisor.</p>
+<p>On top of the hypervisor we run multiple virtual machines.</p>
+<p>Each virtual machine behaves like an independent server.</p>
 <hr>
-<h2 id="slide-9-azs-what-is-it">Slide 9 — AZs: What Is It?<a class="headerlink" href="#slide-9-azs-what-is-it" title="Permanent link"></a></h2>
-<p>Now let’s zoom inside a Region. A Region is not just one data centre — it contains multiple, and they are called Availability Zones or AZs.</p>
-<p>An Availability Zone is one or more physical data centres within a Region, with completely independent power, cooling, and networking. The word independent is doing a lot of work there.</p>
-<p>Look at the diagram on screen. us-east-1, Northern Virginia. Inside it, three AZs — us-east-1a, us-east-1b, us-east-1c. They’re all in the same general geographic area — a few kilometres apart. But a power cut in us-east-1a does not affect us-east-1b. A network failure in us-east-1c does not affect us-east-1a. They are physically isolated from each other by design.</p>
-<p>Most Regions have 3 Availability Zones. They’re close enough that network traffic between them is fast — typically under 2 milliseconds. But far enough apart that a single physical event — fire, flood, power failure — cannot take down more than one.</p>
+<h2 id="slide-9-what-runs-inside-a-vm-3-minutes">Slide 9 — What Runs Inside a VM (3 minutes)<a class="headerlink" href="#slide-9-what-runs-inside-a-vm-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_8">Slide Content<a class="headerlink" href="#slide-content_8" title="Permanent link"></a></h3>
+<p>Inside a VM:
+Linux
+Windows
+Applications
+Databases
+Web servers</p>
+<h3 id="speaker-script_8">Speaker Script<a class="headerlink" href="#speaker-script_8" title="Permanent link"></a></h3>
+<p>Inside a virtual machine you can install anything you would normally install on a computer.</p>
+<p>For example Linux servers, web servers, databases, or enterprise software.</p>
+<p>From inside the VM everything feels like a real machine.</p>
 <hr>
-<h2 id="slide-10-azs-vs-regions">Slide 10 — AZs vs Regions<a class="headerlink" href="#slide-10-azs-vs-regions" title="Permanent link"></a></h2>
-<p>This is the distinction that trips students up most often. Let me be very explicit.</p>
-<p>A Region is the geographic container. us-east-1 is a Region. Think of it like a city.</p>
-<p>An Availability Zone is inside that Region — a specific cluster of data centres. us-east-1a is an AZ inside us-east-1. Think of it like a building in that city.</p>
-<p>The distance between Regions is thousands of kilometres — us-east-1 to eu-west-1 is across the Atlantic Ocean. The distance between AZs is a few kilometres within the same metropolitan area.</p>
-<p>Regions serve different purposes than AZs. You choose a Region for geographic, compliance, or cost reasons. You use multiple AZs within that Region for resilience — to protect your application from a single data centre failure.</p>
-<p>A full Region going down is extremely rare — it has happened a handful of times in AWS history and is treated as a major crisis. A single AZ having a problem is much more plausible, and happens more regularly. That’s exactly why AZs exist.</p>
+<h2 id="slide-10-why-cloud-providers-use-vms-3-minutes">Slide 10 — Why Cloud Providers Use VMs (3 minutes)<a class="headerlink" href="#slide-10-why-cloud-providers-use-vms-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_9">Slide Content<a class="headerlink" href="#slide-content_9" title="Permanent link"></a></h3>
+<p>Benefits:
+Efficient hardware usage
+Fast provisioning
+Better isolation
+Flexible resources</p>
+<h3 id="speaker-script_9">Speaker Script<a class="headerlink" href="#speaker-script_9" title="Permanent link"></a></h3>
+<p>Cloud providers rely heavily on virtualization because it allows them to maximize hardware usage.</p>
+<p>Instead of giving customers entire physical servers they create multiple virtual machines.</p>
+<p>This also allows them to create servers within seconds.</p>
 <hr>
-<h2 id="slide-11-azs-why-azs-matter">Slide 11 — AZs: Why AZs Matter<a class="headerlink" href="#slide-11-azs-why-azs-matter" title="Permanent link"></a></h2>
-<p>This is the most important thing I will say today. I want you to genuinely understand this, not just memorise it.</p>
-<p>If you deploy your application in one AZ only, and that data centre has a power failure, your application is gone. Completely down. Every user gets an error. That is called a single point of failure, and it is unacceptable for any production application.</p>
-<p>Look at the two diagrams. On the left — single AZ deployment. Your app lives in us-east-1a. us-east-1a loses power. Your app is down. Nothing else is running.</p>
-<p>On the right — multi-AZ deployment. Your app runs simultaneously in us-east-1a, us-east-1b, and us-east-1c. us-east-1a loses power. Traffic automatically shifts to us-east-1b and us-east-1c. Users experience nothing — the app keeps running. Nobody gets paged at 3am.</p>
-<p>The rule to remember for your entire career: any production application should run across at least two Availability Zones. This is not optional. This is not advanced. This is the baseline. AWS makes it easy — most services have a single checkbox or dropdown to enable multi-AZ deployment. There is no excuse for skipping it.</p>
+<h2 id="slide-11-example-aws-ec2-2-minutes">Slide 11 — Example AWS EC2 (2 minutes)<a class="headerlink" href="#slide-11-example-aws-ec2-2-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_10">Slide Content<a class="headerlink" href="#slide-content_10" title="Permanent link"></a></h3>
+<p>Launching EC2 = launching a virtual machine</p>
+<p>Choose:
+CPU
+RAM
+OS
+Storage</p>
+<h3 id="speaker-script_10">Speaker Script<a class="headerlink" href="#speaker-script_10" title="Permanent link"></a></h3>
+<p>When you launch an EC2 instance on AWS you are actually creating a virtual machine.</p>
+<p>You choose the CPU size, memory, operating system, and storage.</p>
+<p>Then you connect to the machine using SSH.</p>
 <hr>
-<h2 id="slide-12-azs-real-aws-outage-case-study">Slide 12 — AZs: Real AWS Outage Case Study<a class="headerlink" href="#slide-12-azs-real-aws-outage-case-study" title="Permanent link"></a></h2>
-<p>Let me make this real. In December 2021, AWS had a major outage in us-east-1 that affected hundreds of services and lasted most of the day.</p>
-<p>At around 10:30am, AWS’s own networking automation triggered an unexpected configuration change. Internal AWS services started failing.</p>
-<p>By 11am it had cascaded — AWS’s own monitoring tools went down. This is significant because it meant the engineers trying to fix the problem couldn’t easily see what was broken.</p>
-<p>By noon, services that depended on us-east-1 — Disney+, Netflix, Slack, Coinbase, Amazon.com itself — all started having problems. These are companies running billion-dollar infrastructure on AWS.</p>
-<p>By 3pm, AWS engineers had isolated and fixed the root cause. But full recovery took several more hours after that.</p>
-<p>The lesson: even AWS can fail. Companies that had multi-Region architectures — traffic running in eu-west-1 or ap-southeast-1 as well — recovered much faster. Companies that had everything in us-east-1 with no fallback were stuck waiting.</p>
-<p>This is not a theoretical risk. This happened.</p>
+<h2 id="slide-12-advantages-of-virtual-machines-2-minutes">Slide 12 — Advantages of Virtual Machines (2 minutes)<a class="headerlink" href="#slide-12-advantages-of-virtual-machines-2-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_11">Slide Content<a class="headerlink" href="#slide-content_11" title="Permanent link"></a></h3>
+<p>Isolation
+Efficiency
+Scalability
+Flexibility</p>
+<h3 id="speaker-script_11">Speaker Script<a class="headerlink" href="#speaker-script_11" title="Permanent link"></a></h3>
+<p>Virtual machines provide strong isolation, efficient hardware usage, easy scaling, and flexibility to run different operating systems.</p>
 <hr>
-<h2 id="slide-13-azs-how-to-pick-an-az">Slide 13 — AZs: How to Pick an AZ<a class="headerlink" href="#slide-13-azs-how-to-pick-an-az" title="Permanent link"></a></h2>
-<p>A common question: which AZ should I use? The answer is a bit more nuanced than you might expect.</p>
-<p>AZ names like us-east-1a, us-east-1b, us-east-1c are logical labels — not fixed physical locations. Crucially, the same label maps to different physical data centres for different AWS accounts. If your us-east-1a and my us-east-1a are actually different physical buildings, that’s intentional.</p>
-<p>Why? Because if everyone assumed us-east-1a was the “first” and “best” AZ and put all their resources there, it would become overloaded. AWS randomises the physical mapping per account to spread load evenly across all the data centres.</p>
-<p>The practical rule is simple: don’t try to optimise for a specific AZ. Just make sure your resources are spread across at least two or three different AZs in the same Region. Don’t put everything in one. AWS handles the physical distribution.</p>
-<p>One more thing worth knowing: AZs within a Region talk to each other at very low latency — typically under 2 milliseconds. That’s fast enough to run databases in synchronous replication across AZs, which is exactly how RDS Multi-AZ works. And some services like RDS and Auto Scaling groups can automatically spread across AZs for you — you just specify the Region and they handle the rest.</p>
+<h2 id="slide-13-transition-to-storage-2-minutes">Slide 13 — Transition to Storage (2 minutes)<a class="headerlink" href="#slide-13-transition-to-storage-2-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_12">Slide Content<a class="headerlink" href="#slide-content_12" title="Permanent link"></a></h3>
+<p>Computers need storage for:
+OS
+Applications
+Databases
+User files</p>
+<h3 id="speaker-script_12">Speaker Script<a class="headerlink" href="#speaker-script_12" title="Permanent link"></a></h3>
+<p>Now that we understand computing resources we need to talk about something equally important: <strong>data storage</strong>.</p>
+<p>Every application stores data somewhere.</p>
 <hr>
-<h2 id="slide-14-console-what-is-it">Slide 14 — Console: What Is It?<a class="headerlink" href="#slide-14-console-what-is-it" title="Permanent link"></a></h2>
-<p>Now let’s talk about the tool you’ll actually use every day. The AWS Console is the web interface for accessing and managing all AWS services. You access it at console.aws.amazon.com. It’s just a website — no installation, no setup, just a browser.</p>
-<p>Three things to understand before you ever open it.</p>
-<p>First — all 200+ AWS services are accessible from one place. EC2, S3, RDS, IAM, Lambda, CloudWatch — everything lives in this single console. It can feel overwhelming at first. That’s normal.</p>
-<p>Second — the Region selector is critical. Everything you see in the console is scoped to whichever Region you currently have selected. Switch Region and you’re looking at a completely different set of resources.</p>
-<p>Third — the search bar is your fastest way to navigate. Don’t memorise the menus. Type the service name and press Enter. That’s how experienced engineers navigate it too.</p>
+<h2 id="slide-14-what-is-storage-2-minutes">Slide 14 — What is Storage (2 minutes)<a class="headerlink" href="#slide-14-what-is-storage-2-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_13">Slide Content<a class="headerlink" href="#slide-content_13" title="Permanent link"></a></h3>
+<p>Storage = where data is permanently saved</p>
+<p>Examples:
+Files
+Images
+Backups
+Logs</p>
+<h3 id="speaker-script_13">Speaker Script<a class="headerlink" href="#speaker-script_13" title="Permanent link"></a></h3>
+<p>Storage is simply the place where data is stored permanently.</p>
+<p>Different applications require different storage solutions.</p>
 <hr>
-<h2 id="slide-15-console-key-areas">Slide 15 — Console: Key Areas<a class="headerlink" href="#slide-15-console-key-areas" title="Permanent link"></a></h2>
-<p>Six areas you need to know before you open the console.</p>
-<p>One — the search bar at the top. Type any service name, press Enter. Fastest way to get anywhere.</p>
-<p>Two — the Region selector, top right. The most important element on the entire page. Check it before you do anything. Every resource you create goes into the Region shown here.</p>
-<p>Three — the Account menu, also top right. Your account name, billing information, settings. You’ll use this for checking costs and managing access.</p>
-<p>Four — the Services menu, top left. Lets you browse all services by category — Compute, Storage, Database, Networking, Machine Learning. Useful when you’re exploring, but slower than just searching.</p>
-<p>Five — Recently visited. After a few days of working in AWS, this panel becomes your shortcut list. The services you use most will appear here automatically.</p>
-<p>Six — Console Home dashboard. Shows recently used services and any health alerts for your account. Worth checking when you first log in.</p>
+<h2 id="slide-15-three-major-storage-types-2-minutes">Slide 15 — Three Major Storage Types (2 minutes)<a class="headerlink" href="#slide-15-three-major-storage-types-2-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_14">Slide Content<a class="headerlink" href="#slide-content_14" title="Permanent link"></a></h3>
+<p>Block Storage
+Object Storage
+File Storage</p>
+<h3 id="speaker-script_14">Speaker Script<a class="headerlink" href="#speaker-script_14" title="Permanent link"></a></h3>
+<p>Most cloud platforms provide three major storage models.</p>
+<p>Each is designed for different types of workloads.</p>
 <hr>
-<h2 id="slide-16-console-the-1-mistake">Slide 16 — Console: The #1 Mistake<a class="headerlink" href="#slide-16-console-the-1-mistake" title="Permanent link"></a></h2>
-<p>Here is the most common confusion beginners experience, so you don’t have to go through it yourself.</p>
-<p>You open the EC2 dashboard — we’ll cover EC2 properly next class. You look around, then switch Region to explore a different one. Then you switch back. The page looks completely different — things you saw before are gone. You start to panic.</p>
-<p>Nothing broke. Nothing was deleted. You are simply looking at a different Region. AWS is showing you the resources that exist in the Region you currently have selected, and that Region is empty because you haven’t created anything there. Switch back to the original Region and everything is exactly where you left it.</p>
-<p>The habit to build, starting today: every single time you open the AWS console, before you click on anything, look at the top right corner, read the Region name, confirm it is where you intend to work, and then proceed. Do this every time. Make it automatic.</p>
+<h2 id="slide-16-block-storage-3-minutes">Slide 16 — Block Storage (3 minutes)<a class="headerlink" href="#slide-16-block-storage-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_15">Slide Content<a class="headerlink" href="#slide-content_15" title="Permanent link"></a></h3>
+<p>Used for:
+VM disks
+Databases
+Operating systems</p>
+<p>Example: AWS EBS</p>
+<h3 id="speaker-script_15">Speaker Script<a class="headerlink" href="#speaker-script_15" title="Permanent link"></a></h3>
+<p>Block storage works similar to a hard drive.</p>
+<p>Data is divided into blocks and accessed quickly.</p>
+<p>This makes it ideal for operating systems and databases.</p>
 <hr>
-<h2 id="slide-17-console-iam-deep-dive">Slide 17 — Console: IAM Deep Dive<a class="headerlink" href="#slide-17-console-iam-deep-dive" title="Permanent link"></a></h2>
-<p>IAM — Identity and Access Management — is the most important security service in all of AWS. It is global, meaning it applies to your entire account regardless of Region. And it is completely free.</p>
-<p>IAM has four main concepts you need to understand.</p>
-<p>Users are individual people or applications that need access to AWS. Each person should have their own IAM user with their own credentials. Never share credentials between people — if something goes wrong you won’t know who did it.</p>
-<p>Groups are collections of users. Instead of assigning permissions to each user individually, you assign a policy to a group and all users in that group inherit it. You might have a Developers group, an Admins group, a ReadOnly group.</p>
-<p>Roles are like users but for AWS services or external systems. Imagine an EC2 instance that needs to read files from S3. Instead of hardcoding credentials into the application — which is dangerous — you assign the EC2 instance a Role that grants it S3 read permission. No credentials stored anywhere.</p>
-<p>Policies are JSON documents that define what is allowed or denied. You attach policies to users, groups, or roles. The most powerful policy is AdministratorAccess — it grants full access to everything in the account.</p>
-<p>We will go much deeper on IAM later in the course. For now, just understand that it exists and that these four concepts are the foundation of AWS security.</p>
+<h2 id="slide-17-object-storage-3-minutes">Slide 17 — Object Storage (3 minutes)<a class="headerlink" href="#slide-17-object-storage-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_16">Slide Content<a class="headerlink" href="#slide-content_16" title="Permanent link"></a></h3>
+<p>Used for:
+Images
+Videos
+Backups</p>
+<p>Example: AWS S3</p>
+<h3 id="speaker-script_16">Speaker Script<a class="headerlink" href="#speaker-script_16" title="Permanent link"></a></h3>
+<p>Object storage stores data as objects instead of blocks.</p>
+<p>It is extremely scalable and perfect for storing large amounts of unstructured data.</p>
 <hr>
-<h2 id="slide-18-console-billing-cost-management">Slide 18 — Console: Billing &amp; Cost Management<a class="headerlink" href="#slide-18-console-billing-cost-management" title="Permanent link"></a></h2>
-<p>One of the most important skills in DevOps is understanding what you’re paying for and why. AWS charges for almost everything — compute time, storage, data transfer, API calls. Unexpected bills are a real problem, even for experienced engineers.</p>
-<p>Cost Explorer is a visual tool inside the console that shows your spending over time, broken down by service, Region, or resource tag. If a bill looks higher than expected, Cost Explorer is the first place you go to investigate.</p>
-<p>Billing Alerts let you set a budget threshold — say $10 per month — and AWS will email you when you’re approaching or exceeding it. This is essential for any personal or student account. Set one before you start creating resources.</p>
-<p>The AWS Free Tier gives new accounts 12 months of limited free usage. This includes 750 hours per month of a t2.micro EC2 instance, 5 GB of S3 storage, and more. Always check whether a service is free-tier eligible before using it.</p>
-<p>And finally — common bill shocks. These happen when someone forgets to stop an EC2 instance after class, leaves a database running overnight, or accidentally enables a premium service without realising it. The golden rule: if you created it, turn it off when you’re done with it.</p>
+<h2 id="slide-18-file-storage-3-minutes">Slide 18 — File Storage (3 minutes)<a class="headerlink" href="#slide-18-file-storage-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_17">Slide Content<a class="headerlink" href="#slide-content_17" title="Permanent link"></a></h3>
+<p>Folders and files</p>
+<p>Example: AWS EFS</p>
+<h3 id="speaker-script_17">Speaker Script<a class="headerlink" href="#speaker-script_17" title="Permanent link"></a></h3>
+<p>File storage organizes data using traditional folder structures.</p>
+<p>This is useful when multiple servers need to share the same files.</p>
 <hr>
-<h2 id="slide-19-console-cloudwatch">Slide 19 — Console: CloudWatch<a class="headerlink" href="#slide-19-console-cloudwatch" title="Permanent link"></a></h2>
-<p>CloudWatch is AWS’s built-in monitoring and observability service. It’s the tool that answers the question: “What is actually happening in my infrastructure right now?”</p>
-<p>Every AWS service sends data to CloudWatch automatically. You don’t have to configure anything to start collecting basic metrics.</p>
-<p>Metrics are numerical measurements over time — CPU usage, memory, network traffic, request counts, error rates. CloudWatch collects these from every service and makes them queryable and graphable.</p>
-<p>Logs are the text output from your applications and AWS services. CloudWatch Logs stores them, lets you search them, and lets you filter for specific patterns — like error messages.</p>
-<p>Alarms let you set thresholds on any metric. If CPU usage goes above 80% for five minutes, CloudWatch can send you an email, trigger an automatic scaling action, or run a Lambda function. Alarms are how you get notified before things break rather than after.</p>
-<p>Dashboards let you build visual displays combining metrics from multiple services. Operations teams watch these during incidents to understand the state of a system at a glance.</p>
-<p>CloudWatch is one of the first tools you check when something goes wrong. We’ll use it hands-on in a later class.</p>
+<h2 id="slide-19-simple-comparison-2-minutes">Slide 19 — Simple Comparison (2 minutes)<a class="headerlink" href="#slide-19-simple-comparison-2-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_18">Slide Content<a class="headerlink" href="#slide-content_18" title="Permanent link"></a></h3>
+<p>Block → VM disks
+Object → media and backups
+File → shared folders</p>
+<h3 id="speaker-script_18">Speaker Script<a class="headerlink" href="#speaker-script_18" title="Permanent link"></a></h3>
+<p>Each storage type solves a different problem.</p>
+<p>Choosing the right storage type is an important architectural decision.</p>
 <hr>
-<h2 id="slide-20-console-key-services-to-know">Slide 20 — Console: Key Services to Know<a class="headerlink" href="#slide-20-console-key-services-to-know" title="Permanent link"></a></h2>
-<p>Before we close the Console section, here’s a quick map of the six core services you’ll encounter throughout this course.</p>
-<p>EC2 — Elastic Compute Cloud. Virtual machines in the cloud. You rent a server, control it completely, and pay by the hour. We cover this next class.</p>
-<p>S3 — Simple Storage Service. Object storage for any kind of file — images, videos, backups, logs, static websites. Globally unique bucket names. Practically unlimited storage.</p>
-<p>RDS — Relational Database Service. Managed MySQL, PostgreSQL, Oracle, and others. AWS handles backups, patching, and failover. You just use the database.</p>
-<p>IAM — we just covered this. Users, Groups, Roles, Policies. The security foundation for everything in AWS.</p>
-<p>VPC — Virtual Private Cloud. Your own private network inside AWS. Controls what can talk to what, what’s public-facing and what’s internal. Every EC2 instance lives inside a VPC.</p>
-<p>Lambda — serverless compute. You write a function, upload it to Lambda, and it runs when triggered. No server to manage. Pay only for the milliseconds it actually runs.</p>
+<h2 id="slide-20-real-world-example-3-minutes">Slide 20 — Real World Example (3 minutes)<a class="headerlink" href="#slide-20-real-world-example-3-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_19">Slide Content<a class="headerlink" href="#slide-content_19" title="Permanent link"></a></h3>
+<p>Web application architecture</p>
+<p>VM → server
+Block → OS + DB
+Object → images
+File → shared logs</p>
+<h3 id="speaker-script_19">Speaker Script<a class="headerlink" href="#speaker-script_19" title="Permanent link"></a></h3>
+<p>A real application might use all three storage types together along with virtual machines.</p>
 <hr>
-<h2 id="slide-21-how-it-all-fits-together">Slide 21 — How It All Fits Together<a class="headerlink" href="#slide-21-how-it-all-fits-together" title="Permanent link"></a></h2>
-<p>Now let me connect everything we’ve covered today into one coherent picture.</p>
-<p>AWS services operate at three different scopes, and this matters enormously in practice.</p>
-<p>Global services like IAM, Route 53, and CloudFront operate across all Regions simultaneously. When you create an IAM user, that user exists everywhere in your account. There’s no Region selector for these services — one change affects everything.</p>
-<p>Regional services like S3, DynamoDB, and Lambda exist per Region. An S3 bucket you create in us-east-1 is a completely separate bucket from one you create in ap-south-1. When you create these resources, you choose the Region, and that’s where they live.</p>
-<p>AZ-level services like EC2, RDS, and EBS volumes live inside a specific Availability Zone. When you launch an EC2 instance, it ends up in a specific AZ — say us-east-1a. If you want resilience, you need to manually deploy instances across multiple AZs, or use a service that does it for you.</p>
-<p>Understanding which scope a service operates at is one of the most useful mental models you’ll build in this course. When something isn’t visible where you expect it — check the Region. When you want resilience — check the AZ.</p>
+<h2 id="slide-21-summary-2-minutes">Slide 21 — Summary (2 minutes)<a class="headerlink" href="#slide-21-summary-2-minutes" title="Permanent link"></a></h2>
+<h3 id="slide-content_20">Slide Content<a class="headerlink" href="#slide-content_20" title="Permanent link"></a></h3>
+<p>Virtual Machines
+Block Storage
+Object Storage
+File Storage</p>
+<h3 id="speaker-script_20">Speaker Script<a class="headerlink" href="#speaker-script_20" title="Permanent link"></a></h3>
+<p>Today we covered the fundamental building blocks of cloud infrastructure.</p>
+<p>Virtual machines provide compute power, while storage systems manage application data.</p>
 <hr>
-<h2 id="slide-22-quick-quiz">Slide 22 — Quick Quiz<a class="headerlink" href="#slide-22-quick-quiz" title="Permanent link"></a></h2>
-<p>Five questions. Think before looking at the answers.</p>
-<p>Q1 — A company in Germany must store EU customer data within Europe. Which AWS concept drives that decision? Region. They need eu-central-1 Frankfurt to comply with data residency law.</p>
-<p>Q2 — Your app runs in us-east-1a only. The data centre loses power. What happens? The app goes down completely. Single AZ, single point of failure. This is exactly what multi-AZ is designed to prevent.</p>
-<p>Q3 — You open the AWS console and type a service name in the top bar to navigate. What are you using? The console search bar.</p>
-<p>Q4 — An Indian startup wants the lowest latency for users in Mumbai. Which Region should they choose? ap-south-1.</p>
-<p>Q5 — A Netflix video loads quickly in Mumbai even though Netflix’s servers are in the US. Which AWS concept makes this possible? Edge Locations and CloudFront — the video is cached at the Mumbai edge location.</p>
-<hr>
-<h2 id="slide-23-key-takeaways">Slide 23 — Key Takeaways<a class="headerlink" href="#slide-23-key-takeaways" title="Permanent link"></a></h2>
-<p>Three things to leave today with.</p>
-<p>Regions — a physical location in the world where AWS runs full infrastructure. You choose based on latency, compliance, or cost. ap-south-1 is Mumbai and closest to us. us-east-1 is Virginia and the biggest and cheapest. 30+ worldwide.</p>
-<p>Availability Zones — isolated data centres inside a Region, each with independent power and networking. Always deploy across at least two AZs in production. Single AZ is a single point of failure. The December 2021 outage showed that even AWS itself isn’t immune to failures.</p>
-<p>Console — console.aws.amazon.com. Check the Region selector before doing anything. Search bar is your fastest navigation tool. IAM, Billing, and CloudWatch are three of the most important services to understand before you start building.</p>
-<p>Next class is Day 5 — Virtual Machines. We’ll cover what EC2 is, the different instance types, storage options, and you’ll understand exactly how it all works. We will also walk through the free tier limits carefully before touching anything.</p>
-<p>Any questions?</p>
-<hr>
-<p><em>Total estimated time: 55 min teaching + 5 min Q&amp;A</em>
-<em>Fully theoretical — no accounts, logins, or billing required</em></p>
-<hr>
-<h3 id="slide-map-reference">Slide Map Reference<a class="headerlink" href="#slide-map-reference" title="Permanent link"></a></h3>
-<table>
-<thead>
-<tr>
-<th>Slide</th>
-<th>Topic</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Title</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Agenda</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Recap quiz</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Regions — what is it</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Regions — why they exist</td>
-</tr>
-<tr>
-<td>6</td>
-<td>Regions — real names</td>
-</tr>
-<tr>
-<td>7</td>
-<td>Regions — global infrastructure (3 layers)</td>
-</tr>
-<tr>
-<td>8</td>
-<td>Regions — Edge Locations &amp; CloudFront</td>
-</tr>
-<tr>
-<td>9</td>
-<td>AZs — what is it</td>
-</tr>
-<tr>
-<td>10</td>
-<td>AZs — vs Regions</td>
-</tr>
-<tr>
-<td>11</td>
-<td>AZs — why they matter</td>
-</tr>
-<tr>
-<td>12</td>
-<td>AZs — real outage case study</td>
-</tr>
-<tr>
-<td>13</td>
-<td>AZs — how to pick an AZ</td>
-</tr>
-<tr>
-<td>14</td>
-<td>Console — what is it</td>
-</tr>
-<tr>
-<td>15</td>
-<td>Console — key areas</td>
-</tr>
-<tr>
-<td>16</td>
-<td>Console — the #1 mistake</td>
-</tr>
-<tr>
-<td>17</td>
-<td>Console — IAM deep dive</td>
-</tr>
-<tr>
-<td>18</td>
-<td>Console — billing &amp; cost management</td>
-</tr>
-<tr>
-<td>19</td>
-<td>Console — CloudWatch</td>
-</tr>
-<tr>
-<td>20</td>
-<td>Console — key services to know</td>
-</tr>
-<tr>
-<td>21</td>
-<td>How it all fits together</td>
-</tr>
-<tr>
-<td>22</td>
-<td>Quick quiz</td>
-</tr>
-<tr>
-<td>23</td>
-<td>Key takeaways</td>
-</tr>
-</tbody>
-</table></article></body></html>
+<h2 id="slide-22-next-class-1-minute">Slide 22 — Next Class (1 minute)<a class="headerlink" href="#slide-22-next-class-1-minute" title="Permanent link"></a></h2>
+<h3 id="slide-content_21">Slide Content<a class="headerlink" href="#slide-content_21" title="Permanent link"></a></h3>
+<p>Next topic:
+IAM
+Users
+Roles
+Permissions</p>
+<h3 id="speaker-script_21">Speaker Script<a class="headerlink" href="#speaker-script_21" title="Permanent link"></a></h3>
+<p>In the next class we will explore Identity and Access Management.</p>
+<p>This system controls who can access different cloud resources.</p></article></body></html>
